@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>My Octopress Blog: request.ssl?</title>
+  <meta name="author" content="Your Name">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://yoursite.com/blog/2011/04/20/rails-request-ssl/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml"/>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:yoursite.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">request.ssl?</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-04-20 00:00:00 -0400" pubdate  updated >Apr 20<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;ve been working on a Rails (3.0.5) application which normally just runs under WEBrick in &#8216;development&#8217; mode, but in &#8216;production&#8217; it gets deployed as a <a href="http://en.wikipedia.org/wiki/WAR_file_format_(Sun">WAR</a>)
+into a <a href="http://tomcat.apache.org/">Tomcat</a> server. WAR file? what!?! Yes, we&#8217;re (my rawkstar developer friend and I) using <a href="http://www.jruby.org/">JRuby</a> because Java is heavily
+used by many systems/services/apps we have to potentially integrate with. As a side note, JRuby has been great&#8230;but we could really use support for C extensions (currently
+experimental).</p>
+
+<p>In &#8216;production&#8217; mode Tomcat is configured for two-way SSL, which shouldn&#8217;t be an issue. However, come to find out <a href="http://api.rubyonrails.org/classes/ActionController/Redirecting.html#method-i-redirect_to">redirect_to</a>
+doesn&#8217;t always take into account the URL scheme (insert sad face here). The code snippet below seems trivial, and I initially expected to redirect the user to the #index action
+after invoking the #start action.</p>
+
+<div>
+  <pre>
+    <code class='ruby'>def index
+end
+
+def start
+  do_some_start_stuff
+  redirect_to :action =&gt; 'index'
+end</code>
+  </pre>
+</div>
+
+
+<p>Instead what I saw (as a user, using Firefox at the time &#8211; I prefer Chrome, but didn&#8217;t have it at the time) was a dialog asking me what I wanted to do with a &#8216;application/octet-stream&#8217;. I thought, WTF? Why am I not being redirected to the #index action?</p>
+
+<p>I checked the HTTP request/response (using Firebug) and looked at the logs. <em>BINGO</em> The redirect was sending me to a <em>http</em> URL, not <em>https</em>. Recall, in &#8216;production&#8217; mode the app runs under <em>https</em> all the time,
+so it should never go to a <em>http</em> URL. I looked at the docs for &#8216;redirect_to&#8217; and saw I could specify the &#8216;:protocol&#8217; to be &#8216;https&#8217;, but that felt lame and very WET
+as opposed to being DRY.</p>
+
+<p>I did some googling, figuring I must have been doing something wrong or was missing some configuration option somewhere. I came across a <a href="https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/5750-requestssl-should-reflect-rackurl_scheme#ticket-5750">ticket</a> opened up
+several months ago that revolved around the <a href="http://api.rubyonrails.org/classes/ActionDispatch/Http/URL.html#method-i-ssl-3F">request.ssl?</a> method.</p>
+
+<div>
+  <pre>
+    <code class='ruby'># File actionpack/lib/action_dispatch/http/url.rb, line 20
+def ssl?
+  @env['HTTPS'] == 'on' || @env['HTTP_X_FORWARDED_PROTO'] == 'https'
+end</code>
+  </pre>
+</div>
+
+
+<p>The problem here is neither of those environment variables are being set, which results in &#8216;ssl?&#8217; returning false. I confirmed that Rails 3.0.7 still checks those same environment
+ variables, even though some of the Rails <a href="https://github.com/rails/rails/blob/3-0-7/actionpack/test/dispatch/request_test.rb">tests</a> reference &#8216;rack.url_scheme&#8217;. Come to find out the
+ &#8216;rack.url_scheme&#8217; variable is defined in the Rack <a href="http://rack.rubyforge.org/doc/files/SPEC.html">SPEC</a>.</p>
+
+<p> At this point it was obvious I&#8217;d have to monkey patch or write a custom/special &#8216;redirect_to&#8217; style method. Again, I thought I&#8217;d dig around a little bit just to make sure
+ I wasn&#8217;t going to try and solve an issue that might haven been solved (even though it appeared it hadn&#8217;t been).</p>
+
+<p> Googling revealed a <a href="http://kenai.com/jira/browse/JRUBY_RACK-36?page=com.atlassian.streams.streams-jira-plugin%3Aactivity-stream-issue-tab">ticket</a> that was
+opened against <a href="https://github.com/nicksieger/jruby-rack">JRuby-Rack</a>. Apparently, <a href="http://kenai.com/jira/secure/ViewProfile.jspa?name=munkyboy">munkyboy</a> ran into this issue as
+well and had a workaround:</p>
+
+<div>
+  <pre>
+    <code class='ruby'>def call(env)
+  env['HTTPS'] = 'on' if env['rack.url_scheme'] == 'https'
+  super
+end</code>
+  </pre>
+</div>
+
+
+<p>I put that inside of my application to ensure that the &#8216;HTTPS&#8217; environment variable was set to &#8216;on&#8217; when appropriate.</p>
+
+<div>
+  <pre>
+    <code class='ruby'>module MyApp
+  class Application &lt; Rails::Application
+
+    def call(env)
+      env['HTTPS'] = 'on' if env['rack.url_scheme'] == 'https'
+      super
+    end
+
+  end
+end</code>
+  </pre>
+</div>
+
+
+<p>Problem solved, although I wonder if perhaps the workaround isn&#8217;t really necessary and there&#8217;s some other solution. Anyone else run into this?</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+<time datetime="2011-04-20 00:00:00 -0400" pubdate  updated >Apr 20<span>th</span>, 2011</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoursite.com/blog/2011/04/20/rails-request-ssl/" data-via="" data-counturl="http://yoursite.com/blog/2011/04/20/rails-request-ssl/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/07/06/jqmessagebar-jquery-plugin/">jqMessageBar, a jQuery notification bar</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/04/railscasts-moderator/">RailsCasts Moderator</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/20/rails-request-ssl/">request.ssl?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/14/testing-facebook-oauth-with-localhost/">Testing Facebook OAuth using localhost</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/03/27/railsconf/">RailsConf 2011</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

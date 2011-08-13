@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>My Octopress Blog: Notes for c0d3club // Meeting 1 - node.js</title>
+  <meta name="author" content="Your Name">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://yoursite.com/blog/2010/10/15/c0d3club-notes-for-meeting-1/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml"/>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:yoursite.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Notes for C0d3club // Meeting 1 - node.js</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2010-10-15 00:00:00 -0400" pubdate  updated >Oct 15<span>th</span>, 2010</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><h4>API</h4>
+
+<ul>
+<li>It&#8217;s clear the API is still changing, as expected in such an early version of the library. For example, &#8216;sys&#8217; is being replaced by &#8216;util&#8217; and &#8216;util.exec&#8217; moved to &#8216;child_process&#8217;</li>
+<li>some comments in source, but then again the docs on the nodejs.org site are pretty good</li>
+<li><p>seems like some stuff should be refactored into a &#8216;utils&#8217; type object</p>
+
+<ul>
+<li>checking the type of an object: see child_process@39 (&#8220;is function, is array, etc&#8221;)</li>
+</ul>
+</li>
+<li><p>comment from source that caught my eye</p>
+
+<blockquote><p>// Yes, the follow could be easily DRYed up but I provide the explicit
+// list to make the arguments clear.
+  fs.js @ 146</p></blockquote></li>
+<li><p>optimizing (node_events.cc)</p>
+
+<pre><code>  if (listeners_v-&gt;IsFunction()) {
+    // Optimized one-listener case
+    Local&lt;Function&gt; listener = Local&lt;Function&gt;::Cast(listeners_v);
+
+    listener-&gt;Call(handle_, argc, argv);
+
+    if (try_catch.HasCaught()) {
+      FatalException(try_catch);
+      return false;
+    }
+
+  } else if (listeners_v-&gt;IsArray()) {    
+     ...
+  }
+</code></pre></li>
+</ul>
+
+
+<h3>CommonJS</h3>
+
+<p>According to the <a href="http://www.commonjs.org">CommonJS</a> site, node.js implements modules 1.0 and unit testing 1.0.</p>
+
+<h3>Tools</h3>
+
+<ul>
+<li>jsmin.py &#8211; javascript minifier written in python</li>
+<li>js2c.py &#8211;  This is a utility for converting JavaScript source code into C-style char arrays. It is used for embedded JavaScript code in the V8 # library.</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+<time datetime="2010-10-15 00:00:00 -0400" pubdate  updated >Oct 15<span>th</span>, 2010</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoursite.com/blog/2010/10/15/c0d3club-notes-for-meeting-1/" data-via="" data-counturl="http://yoursite.com/blog/2010/10/15/c0d3club-notes-for-meeting-1/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/07/06/jqmessagebar-jquery-plugin/">jqMessageBar, a jQuery notification bar</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/04/railscasts-moderator/">RailsCasts Moderator</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/20/rails-request-ssl/">request.ssl?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/14/testing-facebook-oauth-with-localhost/">Testing Facebook OAuth using localhost</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/03/27/railsconf/">RailsConf 2011</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>
