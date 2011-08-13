@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>mindscratch</title>
+  <link href="http://mindscratch.org/atom.xml" rel="self"/>
+  <link href="http://mindscratch.org/"/>
+  <updated>2011-08-13T14:42:13-04:00</updated>
+  <id>http://mindscratch.org/</id>
+  <author>
+    <name>Craig Wickesser</name>
+    
+      <email>craig@mindscratch.org</email>
+    
+  </author>
+
+  
+  <entry>
+    <title>Trial</title>
+    <link href="http://mindscratch.org/blog/2011/08/13/trial/"/>
+    <updated>2011-08-13T14:36:00-04:00</updated>
+    <id>http://mindscratch.org/blog/2011/08/13/trial</id>
+    <content type="html">
+</content>
+  </entry>
+  
+</feed>
