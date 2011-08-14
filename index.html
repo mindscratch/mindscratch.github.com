@@ -222,6 +222,24 @@ Ryan has used moderators to help fight spam, keep the comments formatted properl
   Copyright &copy; 2011 - Craig Wickesser -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
+<script type="text/javascript">
+   
+  function woopraReady(tracker){
+    tracker.setDomain('mindscratch.org');
+    tracker.setIdleTimeout(300000);
+    tracker.track();
+    return false;
+  }
+                   
+  (function(){            
+    var wsc=document.createElement('script');
+    wsc.type='text/javascript';
+    wsc.src=document.location.protocol+'//static.woopra.com/js/woopra.js';
+    wsc.async=true;
+    var ssc = document.getElementsByTagName('script')[0];
+    ssc.parentNode.insertBefore(wsc, ssc);
+  })();
+</script>
 
 </footer>
 </body>
