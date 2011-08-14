@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title>mindscratch</title>
+  <title>mindscratch.org</title>
   <link href="http://mindscratch.org/atom.xml" rel="self"/>
   <link href="http://mindscratch.org/"/>
-  <updated>2011-08-13T21:40:16-04:00</updated>
+  <updated>2011-08-13T22:39:09-04:00</updated>
   <id>http://mindscratch.org/</id>
   <author>
     <name>Craig Wickesser</name>
