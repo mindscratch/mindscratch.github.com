@@ -4,7 +4,7 @@
   <title>mindscratch</title>
   <link href="http://mindscratch.org/atom.xml" rel="self"/>
   <link href="http://mindscratch.org/"/>
-  <updated>2011-08-13T19:34:57-04:00</updated>
+  <updated>2011-08-13T21:23:19-04:00</updated>
   <id>http://mindscratch.org/</id>
   <author>
     <name>Craig Wickesser</name>
@@ -15,11 +15,58 @@
 
   
   <entry>
-    <title>Trial</title>
-    <link href="http://mindscratch.org/blog/2011/08/13/trial/"/>
-    <updated>2011-08-13T14:36:00-04:00</updated>
-    <id>http://mindscratch.org/blog/2011/08/13/trial</id>
-    <content type="html">
+    <title>Writing for rubysource</title>
+    <link href="http://mindscratch.org/blog/2011/08/13/writing-for-rubysource/"/>
+    <updated>2011-08-13T19:50:00-04:00</updated>
+    <id>http://mindscratch.org/blog/2011/08/13/writing-for-rubysource</id>
+    <content type="html">&lt;p&gt;I've been writing articles for various online sites (and publications) for the past four years. It really all started
+after I got to know Scott Delap, the guy behind &lt;a href=&quot;http://www.clientjava.com&quot;&gt;Client Java&lt;/a&gt;. I was a Java 2D and Swing developer
+from 2003 - 2008, and the Client Java site was a great resource. I ended up doing some consulting type work for Scott and
+he ended up asking me about writing for &lt;a href=&quot;http://www.infoq.com/author/Craig-Wickesser&quot;&gt;InfoQ&lt;/a&gt;. I did some trial type posts and ended up getting the
+gig.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.infoq.com/news/2007/08/scala-overview&quot;&gt;Catching Up with Scala&lt;/a&gt; was my first post and was published on August 22, 2007. That post was published jointy with Scott, but my first
+&quot;solo&quot; post was titled &lt;a href=&quot;http://www.infoq.com/news/2007/09/jpa-dao&quot;&gt;&quot;Has JPA Killed the DAO?&quot;&lt;/a&gt;.  I ended up writing 32 news articles and 2 featured articles during my 2+ years with InfoQ (my last news article was published on December 12, 2009, titled &lt;a href=&quot;http://www.infoq.com/news/2009/12/intellij-idea-9&quot;&gt;&quot;IntelliJ IDEA 9: Java EE6, OSGi, Flex and More&quot;&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Before I stopped writing for InfoQ I got in contact with Michael Kimsal, founder of &lt;a href=&quot;http://webdevpub.com&quot;&gt;webdev publishing&lt;/a&gt;, &lt;a href=&quot;http://groovymag.com&quot;&gt;GroovyMag&lt;/a&gt;, &lt;a href=&quot;http://jsmag.com&quot;&gt;JSMag&lt;/a&gt; and plenty of other things, about an opportunity to work on the GroovyMag publication (a digital magazine, in PDF format).
+Here's the original email I sent to Michael on February 4, 2009:&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Hi,
+  I recently started subscribing to/reading GroovyMag and I really enjoy it.  I am a software engineer by day (java/swing/flex/python/jython...groovy/grails hopefully) and Java Editor for InfoQ by night/weekends (part-time).  I am learning Groovy and Grails because I believe there is a lot of potential and usefulness and I hope to incorporate them into my day job sometime (sooner than later hopefully).&lt;/p&gt;
+
+&lt;p&gt; Anyhow, I saw there opportunities to write for GroovyMag and I was wondering how I might be able to get involved.  If it seems like a possibility hit me back and we'll go from there.&lt;/p&gt;
+
+&lt;p&gt;Thanks,&lt;/p&gt;
+
+&lt;p&gt;Craig&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;I officially got started as a technical editor for both publications (GroovyMag and JSMag) on February 12, 2009 and I continued through April/May 2010. During that time I also wrote several articles:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Easy Behavior Driven Development, Using easyb for BDD (sept 2009)&lt;/li&gt;
+&lt;li&gt;Metaprogramming with Groovy, part 1 (dec 2009)&lt;/li&gt;
+&lt;li&gt;Metaprogramming with Groovy, part 2 (jan 2010)&lt;/li&gt;
+&lt;li&gt;Catching Up with Griffon, Q&amp;amp;A with Andres Almiray (feb 2010)&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Working on GroovyMag was interesting and frustrating. The frustration usually came from waiting for authors to submit their posts for review and having to sort through some pretty poor grammar and spelling (and believe me, I'm nowhere near perfect myself).&lt;/p&gt;
+
+&lt;p&gt;This leads me to my latest endeavor, writing for &lt;a href=&quot;http://www.rubysource.com&quot;&gt;RubySource&lt;/a&gt;. I've chosen to take on this opportunity because I've been working with Ruby for about 6 months and I'd like to share my experiences and learn more (through the process of writing). I've worked with &lt;a href=&quot;http://twitter.com/#!/aaron_osteraas&quot;&gt;Aaron Osteraas&lt;/a&gt; to get started
+and I'm looking forward to having my first post on the site in the next couple of weeks.&lt;/p&gt;
+
+&lt;p&gt;On a side note, I also signed up to be a moderator for the super-awesome &lt;a href=&quot;http://www.railscasts.com&quot;&gt;RailsCasts&lt;/a&gt; site. &lt;a href=&quot;http://twitter.com/rbates&quot;&gt;Ryan Bates&lt;/a&gt; has published 278 free screencasts covering all sorts of Rails aspects including lots of 3rd party gems/plugins.
+Ryan has used moderators to help fight spam, keep the comments formatted properly and help find any mistakes in the videos or the associated source code.&lt;/p&gt;
+
+&lt;p&gt;In short, here's the timeline of my writing/editing career:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;InfoQ: 08/2007 - 12/2009&lt;/li&gt;
+&lt;li&gt;GroovyMag/JSMag: 02/2009 - 05/2010&lt;/li&gt;
+&lt;li&gt;RailsCasts Moderator: 07/2010 - ?&lt;/li&gt;
+&lt;li&gt;RubySource: 08/2011 - ?&lt;/li&gt;
+&lt;/ul&gt;
+
 </content>
   </entry>
   
