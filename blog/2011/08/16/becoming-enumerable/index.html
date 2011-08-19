@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>mindscratch.org: Blog Archive</title>
+  <title>mindscratch.org: Becoming Enumerable</title>
   <meta name="author" content="Craig Wickesser">
   
 
@@ -16,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://mindscratch.org/blog/archives/index.html"/>
+  <link rel="canonical" href="http://mindscratch.org/blog/2011/08/16/becoming-enumerable/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -82,44 +82,132 @@
   <div id="main">
     <div id="content">
       <div>
-<article>
+<article class="hentry">
+  
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Becoming Enumerable</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-16 20:42:00 -0400" pubdate  updated >Aug 16<span>th</span>, 2011</time>
+
+
+</p>
     
   </header>
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>My first post on <a href="http://rubysource.com">RubySource</a> covers using mixin&#8217;s in Ruby. Shortly after writing that article I ran across a presentation titled <a href="http://confreaks.net/videos/607-cascadiaruby2011-the-enumerable-module-or-how-i-fell-in-love-with-ruby">&#8220;The Enumerable Module&#8221;</a> presented by Haris Amin at Cascadia Ruby Conf 2011. The general idea is that you can make your classes enumerable (e.g. have lots of cool methods you&#8217;re used to seeing when working with Arrays, Hashes, etc).</p>
 
-  
-  <h2>2011</h2>
+<p>Since the process of making a class enumerable requires the use of mixin&#8217;s I figured I provide a brief demonstration of how to do it.</p>
 
-<article>
-  
-<h1><a href="/blog/2011/08/16/becoming-enumerable/">Becoming Enumerable</a></h1>
-<time datetime="2011-08-16 20:42:00 -0400" pubdate><span class='month'>Aug</span> <span class='day'>16</span> <span class='year'>2011</span></time>
+<pre><code>class Followers
+    include Enumerable
 
+    def initialize
+        @followers = []
+    end
 
-</article>
+    def add_follower(name)
+        @followers &lt;&lt; name
+    end
 
+    def degrees_of_separation(name)
+        # calculate
+    end
 
+    # must implement the each method
+    def each
+        # simple in this example
+        @followers.each do |val|
+            yield val
+        end
+    end
+end
+</code></pre>
 
-<article>
-  
-<h1><a href="/blog/2011/08/13/writing-for-rubysource/">Writing for rubysource</a></h1>
-<time datetime="2011-08-13 19:50:00 -0400" pubdate><span class='month'>Aug</span> <span class='day'>13</span> <span class='year'>2011</span></time>
+<p>The <code>Followers</code> class stores an array of values which we iterate over in our implementation of the <code>#each</code> method.</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/groovymag/'>groovymag</a>, <a class='category' href='/blog/categories/infoq/'>infoq</a>, <a class='category' href='/blog/categories/railscasts/'>railscasts</a>, <a class='category' href='/blog/categories/rubysource/'>rubysource</a></span>
-</footer>
+<p>Check it out:</p>
 
+<pre><code>f = Followers.new
+f.add_follower 'shaun'
+f.add_follower 'cliff'
+f.add_follower 'sean'
+f.add_follower 'nick'
+f.add_follower 'tim'
 
-</article>
+f.find_all {|val|
+  val.match /^s/i
+}
+# output: ["shaun", "sean"]
 
+f.collect do |val|
+  val.upcase
+end
+# result: ["SHAUN", "CLIFF", ...]
+</code></pre>
+
+<p>Sorry for the lame example (e.g. &#8220;followers&#8221;) but I think you get the point.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Craig Wickesser</span></span>
+
+      
+
+
+
+
+<time datetime="2011-08-16 20:42:00 -0400" pubdate  updated >Aug 16<span>th</span>, 2011</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mindscratch.org/blog/2011/08/16/becoming-enumerable/" data-via="mind_scratch" data-counturl="http://mindscratch.org/blog/2011/08/16/becoming-enumerable/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'mindscratchgithub';
+  var disqus_identifier = 'http://mindscratch.org/blog/2011/08/16/becoming-enumerable/';
+  var disqus_url = 'http://mindscratch.org/blog/2011/08/16/becoming-enumerable/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 

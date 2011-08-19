@@ -89,6 +89,87 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/08/16/becoming-enumerable/">Becoming Enumerable</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-16 20:42:00 -0400" pubdate  updated >Aug 16<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My first post on <a href="http://rubysource.com">RubySource</a> covers using mixin&#8217;s in Ruby. Shortly after writing that article I ran across a presentation titled <a href="http://confreaks.net/videos/607-cascadiaruby2011-the-enumerable-module-or-how-i-fell-in-love-with-ruby">&#8220;The Enumerable Module&#8221;</a> presented by Haris Amin at Cascadia Ruby Conf 2011. The general idea is that you can make your classes enumerable (e.g. have lots of cool methods you&#8217;re used to seeing when working with Arrays, Hashes, etc).</p>
+
+<p>Since the process of making a class enumerable requires the use of mixin&#8217;s I figured I provide a brief demonstration of how to do it.</p>
+
+<pre><code>class Followers
+    include Enumerable
+
+    def initialize
+        @followers = []
+    end
+
+    def add_follower(name)
+        @followers &lt;&lt; name
+    end
+
+    def degrees_of_separation(name)
+        # calculate
+    end
+
+    # must implement the each method
+    def each
+        # simple in this example
+        @followers.each do |val|
+            yield val
+        end
+    end
+end
+</code></pre>
+
+<p>The <code>Followers</code> class stores an array of values which we iterate over in our implementation of the <code>#each</code> method.</p>
+
+<p>Check it out:</p>
+
+<pre><code>f = Followers.new
+f.add_follower 'shaun'
+f.add_follower 'cliff'
+f.add_follower 'sean'
+f.add_follower 'nick'
+f.add_follower 'tim'
+
+f.find_all {|val|
+  val.match /^s/i
+}
+# output: ["shaun", "sean"]
+
+f.collect do |val|
+  val.upcase
+end
+# result: ["SHAUN", "CLIFF", ...]
+</code></pre>
+
+<p>Sorry for the lame example (e.g. &#8220;followers&#8221;) but I think you get the point.</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/08/16/becoming-enumerable/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/08/13/writing-for-rubysource/">Writing for Rubysource</a></h1>
     
     
@@ -185,6 +266,10 @@ Ryan has used moderators to help fight spam, keep the comments formatted properl
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/16/becoming-enumerable/">Becoming Enumerable</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2011/08/13/writing-for-rubysource/">Writing for rubysource</a>

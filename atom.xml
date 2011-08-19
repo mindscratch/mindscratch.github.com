@@ -4,7 +4,7 @@
   <title>mindscratch.org</title>
   <link href="http://mindscratch.org/atom.xml" rel="self"/>
   <link href="http://mindscratch.org/"/>
-  <updated>2011-08-14T19:33:17-04:00</updated>
+  <updated>2011-08-18T22:17:08-04:00</updated>
   <id>http://mindscratch.org/</id>
   <author>
     <name>Craig Wickesser</name>
@@ -13,6 +13,66 @@
     
   </author>
 
+  
+  <entry>
+    <title>Becoming Enumerable</title>
+    <link href="http://mindscratch.org/blog/2011/08/16/becoming-enumerable/"/>
+    <updated>2011-08-16T20:42:00-04:00</updated>
+    <id>http://mindscratch.org/blog/2011/08/16/becoming-enumerable</id>
+    <content type="html">&lt;p&gt;My first post on &lt;a href=&quot;http://rubysource.com&quot;&gt;RubySource&lt;/a&gt; covers using mixin's in Ruby. Shortly after writing that article I ran across a presentation titled &lt;a href=&quot;http://confreaks.net/videos/607-cascadiaruby2011-the-enumerable-module-or-how-i-fell-in-love-with-ruby&quot;&gt;&quot;The Enumerable Module&quot;&lt;/a&gt; presented by Haris Amin at Cascadia Ruby Conf 2011. The general idea is that you can make your classes enumerable (e.g. have lots of cool methods you're used to seeing when working with Arrays, Hashes, etc).&lt;/p&gt;
+
+&lt;p&gt;Since the process of making a class enumerable requires the use of mixin's I figured I provide a brief demonstration of how to do it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Followers
+    include Enumerable
+
+    def initialize
+        @followers = []
+    end
+
+    def add_follower(name)
+        @followers &amp;lt;&amp;lt; name
+    end
+
+    def degrees_of_separation(name)
+        # calculate
+    end
+
+    # must implement the each method
+    def each
+        # simple in this example
+        @followers.each do |val|
+            yield val
+        end
+    end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;Followers&lt;/code&gt; class stores an array of values which we iterate over in our implementation of the &lt;code&gt;#each&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;p&gt;Check it out:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;f = Followers.new
+f.add_follower 'shaun'
+f.add_follower 'cliff'
+f.add_follower 'sean'
+f.add_follower 'nick'
+f.add_follower 'tim'
+
+f.find_all {|val|
+  val.match /^s/i
+}
+# output: [&quot;shaun&quot;, &quot;sean&quot;]
+
+f.collect do |val|
+  val.upcase
+end
+# result: [&quot;SHAUN&quot;, &quot;CLIFF&quot;, ...]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sorry for the lame example (e.g. &quot;followers&quot;) but I think you get the point.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Writing for rubysource</title>
