@@ -4,7 +4,7 @@
   <title>mindscratch.org</title>
   <link href="http://mindscratch.org/atom.xml" rel="self"/>
   <link href="http://mindscratch.org/"/>
-  <updated>2011-08-18T22:20:15-04:00</updated>
+  <updated>2011-12-18T21:35:32-05:00</updated>
   <id>http://mindscratch.org/</id>
   <author>
     <name>Craig Wickesser</name>
@@ -13,6 +13,29 @@
     
   </author>
 
+  
+  <entry>
+    <title>Map/Reduce With Hadoop and Ruby</title>
+    <link href="http://mindscratch.org/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/"/>
+    <updated>2011-12-18T21:09:00-05:00</updated>
+    <id>http://mindscratch.org/blog/2011/12/18/map-reduce-with-hadoop-and-ruby</id>
+    <content type="html">&lt;p&gt;Unless you've been passed out at a bar you've probably heard about Map/Reduce, Hadoop or just the &quot;cloud&quot;. Afterall, it's the &quot;next big thing&quot;, if you're into that sort of stuff.&lt;/p&gt;
+
+&lt;p&gt;At work the &quot;cloud&quot;, Map/Reduce, analytics are all the hotness. I figured I'd try out the &lt;a href=&quot;http://hadoop.apache.org/common/docs/current/streaming.html&quot;&gt;Hadoop Streaming API&lt;/a&gt; by piping data in and out with Ruby. I started out with a very small text file. Next I wrote the mapper which reads lines of text from STDIN and emits results through STDOUT.&lt;/p&gt;
+
+&lt;p&gt;The reducer would be as trivial as the mapper except that it needs to keep track of when the key changes. Unlike the standard reducer API which provides a key with all of its values, the streaming API doesn't do that. Besides that the reducer (at least in my trivial example) is rather simple.&lt;/p&gt;
+
+&lt;p&gt;The best part, is you can do all of this without ever setting up or using Hadoop! Now wait a minute, I thought I was trying out the Hadoop Streaming API. Well, you can do all the work and even test your mapper and reducer without using Hadoop. By simply piping data into and out of the mapper and reducer you can simulate what Hadoop will do. If you want to get real fancy pants you can throw in an intermediate sort before piping data to your reducer.&lt;/p&gt;
+
+&lt;p&gt;Check out my gist which does the minimal thing before getting Hadoop involved.&lt;/p&gt;
+
+&lt;div&gt;&lt;script src='https://gist.github.com/1328410.js?file='&gt;&lt;/script&gt;
+&lt;noscript&gt;&lt;pre&gt;&lt;code&gt;Now is definitely the time&lt;/code&gt;&lt;/pre&gt;&lt;/noscript&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pretty cool stuff I think. Now I just run this with a real cloudy Hadoop setup and everything will be real groovy!&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Becoming Enumerable</title>

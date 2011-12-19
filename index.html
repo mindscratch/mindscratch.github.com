@@ -89,6 +89,50 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/">Map/Reduce With Hadoop and Ruby</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-12-18 21:09:00 -0500" pubdate  updated >Dec 18<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Unless you&#8217;ve been passed out at a bar you&#8217;ve probably heard about Map/Reduce, Hadoop or just the &#8220;cloud&#8221;. Afterall, it&#8217;s the &#8220;next big thing&#8221;, if you&#8217;re into that sort of stuff.</p>
+
+<p>At work the &#8220;cloud&#8221;, Map/Reduce, analytics are all the hotness. I figured I&#8217;d try out the <a href="http://hadoop.apache.org/common/docs/current/streaming.html">Hadoop Streaming API</a> by piping data in and out with Ruby. I started out with a very small text file. Next I wrote the mapper which reads lines of text from STDIN and emits results through STDOUT.</p>
+
+<p>The reducer would be as trivial as the mapper except that it needs to keep track of when the key changes. Unlike the standard reducer API which provides a key with all of its values, the streaming API doesn&#8217;t do that. Besides that the reducer (at least in my trivial example) is rather simple.</p>
+
+<p>The best part, is you can do all of this without ever setting up or using Hadoop! Now wait a minute, I thought I was trying out the Hadoop Streaming API. Well, you can do all the work and even test your mapper and reducer without using Hadoop. By simply piping data into and out of the mapper and reducer you can simulate what Hadoop will do. If you want to get real fancy pants you can throw in an intermediate sort before piping data to your reducer.</p>
+
+<p>Check out my gist which does the minimal thing before getting Hadoop involved.</p>
+
+<div><script src='https://gist.github.com/1328410.js?file='></script>
+<noscript><pre><code>Now is definitely the time</code></pre></noscript></div>
+
+
+<p>Pretty cool stuff I think. Now I just run this with a real cloudy Hadoop setup and everything will be real groovy!</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/08/18/becoming-enumerable/">Becoming Enumerable</a></h1>
     
     
@@ -266,6 +310,10 @@ Ryan has used moderators to help fight spam, keep the comments formatted properl
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/">Map/Reduce With Hadoop and Ruby</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2011/08/18/becoming-enumerable/">Becoming Enumerable</a>

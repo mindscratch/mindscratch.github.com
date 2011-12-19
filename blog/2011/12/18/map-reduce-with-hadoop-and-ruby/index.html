@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>mindscratch.org: Writing for rubysource</title>
+  <title>mindscratch.org: Map/Reduce With Hadoop and Ruby</title>
   <meta name="author" content="Craig Wickesser">
   
 
@@ -16,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://mindscratch.org/blog/2011/08/13/writing-for-rubysource/"/>
+  <link rel="canonical" href="http://mindscratch.org/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -86,7 +86,7 @@
   
   <header>
     
-      <h1 class="entry-title">Writing for Rubysource</h1>
+      <h1 class="entry-title">Map/Reduce With Hadoop and Ruby</h1>
     
     
       <p class="meta">
@@ -94,7 +94,7 @@
 
 
 
-<time datetime="2011-08-13 19:50:00 -0400" pubdate  updated >Aug 13<span>th</span>, 2011</time>
+<time datetime="2011-12-18 21:09:00 -0500" pubdate  updated >Dec 18<span>th</span>, 2011</time>
 
 
 </p>
@@ -102,54 +102,21 @@
   </header>
 
 
-<div class="entry-content"><p>I&#8217;ve been writing articles for various online sites (and publications) for the past four years. It really all started
-after I got to know Scott Delap, the guy behind <a href="http://www.clientjava.com">Client Java</a>. I was a Java 2D and Swing developer
-from 2003 - 2008, and the Client Java site was a great resource. I ended up doing some consulting type work for Scott and
-he ended up asking me about writing for <a href="http://www.infoq.com/author/Craig-Wickesser">InfoQ</a>. I did some trial type posts and ended up getting the
-gig.</p>
+<div class="entry-content"><p>Unless you&#8217;ve been passed out at a bar you&#8217;ve probably heard about Map/Reduce, Hadoop or just the &#8220;cloud&#8221;. Afterall, it&#8217;s the &#8220;next big thing&#8221;, if you&#8217;re into that sort of stuff.</p>
 
-<p><a href="http://www.infoq.com/news/2007/08/scala-overview">Catching Up with Scala</a> was my first post and was published on August 22, 2007. That post was published jointly with Scott, but my first
-&#8220;solo&#8221; post was titled <a href="http://www.infoq.com/news/2007/09/jpa-dao">&#8220;Has JPA Killed the DAO?&#8221;</a>.  I ended up writing 32 news articles and 2 featured articles during my 2+ years with InfoQ (my last news article was published on December 12, 2009, titled <a href="http://www.infoq.com/news/2009/12/intellij-idea-9">&#8220;IntelliJ IDEA 9: Java EE6, OSGi, Flex and More&#8221;</a>).</p>
+<p>At work the &#8220;cloud&#8221;, Map/Reduce, analytics are all the hotness. I figured I&#8217;d try out the <a href="http://hadoop.apache.org/common/docs/current/streaming.html">Hadoop Streaming API</a> by piping data in and out with Ruby. I started out with a very small text file. Next I wrote the mapper which reads lines of text from STDIN and emits results through STDOUT.</p>
 
-<p>Before I stopped writing for InfoQ I got in contact with Michael Kimsal, founder of <a href="http://webdevpub.com">webdev publishing</a>, <a href="http://groovymag.com">GroovyMag</a>, <a href="http://jsmag.com">JSMag</a> and plenty of other things, about an opportunity to work on the GroovyMag publication (a digital magazine, in PDF format).
-Here&#8217;s the original email I sent to Michael on February 4, 2009:</p>
+<p>The reducer would be as trivial as the mapper except that it needs to keep track of when the key changes. Unlike the standard reducer API which provides a key with all of its values, the streaming API doesn&#8217;t do that. Besides that the reducer (at least in my trivial example) is rather simple.</p>
 
-<blockquote><p>Hi,
-  I recently started subscribing to/reading GroovyMag and I really enjoy it.  I am a software engineer by day (java/swing/flex/python/jython&#8230;groovy/grails hopefully) and Java Editor for InfoQ by night/weekends (part-time).  I am learning Groovy and Grails because I believe there is a lot of potential and usefulness and I hope to incorporate them into my day job sometime (sooner than later hopefully).</p>
+<p>The best part, is you can do all of this without ever setting up or using Hadoop! Now wait a minute, I thought I was trying out the Hadoop Streaming API. Well, you can do all the work and even test your mapper and reducer without using Hadoop. By simply piping data into and out of the mapper and reducer you can simulate what Hadoop will do. If you want to get real fancy pants you can throw in an intermediate sort before piping data to your reducer.</p>
 
-<p> Anyhow, I saw there opportunities to write for GroovyMag and I was wondering how I might be able to get involved.  If it seems like a possibility hit me back and we&#8217;ll go from there.</p>
+<p>Check out my gist which does the minimal thing before getting Hadoop involved.</p>
 
-<p>Thanks,</p>
-
-<p>Craig</p></blockquote>
-
-<p>I officially got started as a technical editor for both publications (GroovyMag and JSMag) on February 12, 2009 and I continued through April/May 2010. During that time I also wrote several articles:</p>
-
-<ul>
-<li>Easy Behavior Driven Development, Using easyb for BDD (sept 2009)</li>
-<li>Metaprogramming with Groovy, part 1 (dec 2009)</li>
-<li>Metaprogramming with Groovy, part 2 (jan 2010)</li>
-<li>Catching Up with Griffon, Q&amp;A with Andres Almiray (feb 2010)</li>
-</ul>
+<div><script src='https://gist.github.com/1328410.js?file='></script>
+<noscript><pre><code>Now is definitely the time</code></pre></noscript></div>
 
 
-<p>Working on GroovyMag was interesting and frustrating. The frustration usually came from waiting for authors to submit their posts for review and having to sort through some pretty poor grammar and spelling (and believe me, I&#8217;m nowhere near perfect myself).</p>
-
-<p>This leads me to my latest endeavor, writing for <a href="http://www.rubysource.com">RubySource</a>. I&#8217;ve chosen to take on this opportunity because I&#8217;ve been working with Ruby for about 6 months and I&#8217;d like to share my experiences and learn more (through the process of writing). I&#8217;ve worked with <a href="http://twitter.com/#!/aaron_osteraas">Aaron Osteraas</a> to get started
-and I&#8217;m looking forward to having my first post on the site in the next couple of weeks.</p>
-
-<p>On a side note, I also signed up to be a moderator for the super-awesome <a href="http://www.railscasts.com">RailsCasts</a> site. <a href="http://twitter.com/rbates">Ryan Bates</a> has published 278 free screencasts covering all sorts of Rails aspects including lots of 3rd party gems/plugins.
-Ryan has used moderators to help fight spam, keep the comments formatted properly and help find any mistakes in the videos or the associated source code.</p>
-
-<p>In short, here&#8217;s the timeline of my writing/editing career:</p>
-
-<ul>
-<li>InfoQ: 08/2007 - 12/2009</li>
-<li>GroovyMag/JSMag: 02/2009 - 05/2010</li>
-<li>RailsCasts Moderator: 07/2010 - ?</li>
-<li>RubySource: 08/2011 - ?</li>
-</ul>
-
+<p>Pretty cool stuff I think. Now I just run this with a real cloudy Hadoop setup and everything will be real groovy!</p>
 </div>
 
 
@@ -165,7 +132,7 @@ Ryan has used moderators to help fight spam, keep the comments formatted properl
 
 
 
-<time datetime="2011-08-13 19:50:00 -0400" pubdate  updated >Aug 13<span>th</span>, 2011</time>
+<time datetime="2011-12-18 21:09:00 -0500" pubdate  updated >Dec 18<span>th</span>, 2011</time>
 
 
 
@@ -173,7 +140,7 @@ Ryan has used moderators to help fight spam, keep the comments formatted properl
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/groovymag/'>groovymag</a>, <a class='category' href='/blog/categories/infoq/'>infoq</a>, <a class='category' href='/blog/categories/railscasts/'>railscasts</a>, <a class='category' href='/blog/categories/rubysource/'>rubysource</a>
+    <a class='category' href='/blog/categories/hadoop/'>hadoop</a>, <a class='category' href='/blog/categories/map-reduce/'>map-reduce</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
   
 </span>
 
@@ -182,7 +149,7 @@ Ryan has used moderators to help fight spam, keep the comments formatted properl
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mindscratch.org/blog/2011/08/13/writing-for-rubysource/" data-via="mind_scratch" data-counturl="http://mindscratch.org/blog/2011/08/13/writing-for-rubysource/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mindscratch.org/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/" data-via="mind_scratch" data-counturl="http://mindscratch.org/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/" >Tweet</a>
   
   
   <g:plusone size="medium"></g:plusone>
@@ -198,8 +165,8 @@ Ryan has used moderators to help fight spam, keep the comments formatted properl
     <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'mindscratchgithub';
-  var disqus_identifier = 'http://mindscratch.org/blog/2011/08/13/writing-for-rubysource/';
-  var disqus_url = 'http://mindscratch.org/blog/2011/08/13/writing-for-rubysource/';
+  var disqus_identifier = 'http://mindscratch.org/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/';
+  var disqus_url = 'http://mindscratch.org/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/';
   //var disqus_developer = 1;
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
