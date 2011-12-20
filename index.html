@@ -89,6 +89,78 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/12/18/shared-mongo-configuration-settings-in-rails/">Shared Mongo Configuration Settings in Rails</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-12-18 21:58:00 -0500" pubdate  updated >Dec 18<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve developed a handful of Rails (3.x) applications which all used MongoDB as the persistence layer. In fact, I&#8217;ve yet to build a SQL backed Rails application during my &#8220;day job&#8221;. Thus far I&#8217;ve preferred Mongoid vs. MongoMapper, primarily because of the documentation. Although, I haven&#8217;t gone back to look at MongoMapper in almost a year&#8230;but at this point, I don&#8217;t have a need to change.</p>
+
+<p>Typically with Mongoid, you&#8217;ll have a mongoid.yml file that has your database configuration. That&#8217;s really super when you only use Mongoid to interact with your database. However, if you end up using another library/gem that needs to work with your database you&#8217;ll have to duplicate your database configuration. NOT! Being a star developer (you know you are), you&#8217;ll come up with some solution so you don&#8217;t have to copy your database configuration around to multiple files.</p>
+
+<p>I ran into this situation when I began using <a href="https://github.com/bkeepers/qu/">Qu</a>. Qu is a library for &#8220;queueing and processing background jobs&#8221;. It&#8217;s easy to use, has a dandy API and works with either MongoDB or Redis. It might be worth mentioning here that <a href="https://github.com/bkeepers">Brandon Keepers</a>, the creator of Qu, worked for <a href="http://orderedlist.com/">Ordered List</a> which was recently <a href="http://orderedlist.com/blog/articles/ordered-list-acquired-by-github/">acquired</a> by GitHub.</p>
+
+<p>Anyways, back to my solution for not duplicating database configuration. I&#8217;ve recently started using the <a href="https://github.com/binarylogic/settingslogic">settingslogic</a> gem on my Rails project to manage my application configuration. I have a &#8220;application.yml&#8221; file that now contains my database configuration. Using settingslogic is not a requirement, in fact Rails has a <a href="http://blog.carbonfive.com/2011/11/23/configuration-for-rails-the-right-way/">built-in method</a> for dealing with application configuration, so use what you like.</p>
+
+<p>Once I had my database configuration in a file, I setup two initializers: one for Mongoid and one for Qu. The best way I found was to create a MongoDB <a href="http://www.mongodb.org/display/DOCS/Connections">URI formatted</a> string. Check out the following gist:</p>
+
+<div><script src='https://gist.github.com/1269292.js?file='></script>
+<noscript><pre><code># this is only a partial YAML file from a Rails application
+# this YAML file would be loaded and used with the settingslogic gem
+
+defaults: &amp;defaults
+  database: &amp;database
+    conn_uri: mongodb://username:password@localhost:27001/
+    db_name: myapp_default
+  job_queue: &amp;job_queue
+    db_name: qu
+
+development:
+  &lt;&lt;: *defaults
+  database:
+    &lt;&lt;: *database
+    db_name: myapp_development
+  job_queue:
+    &lt;&lt;: *job_queue
+    db_name: qu_development
+
+test:
+  &lt;&lt;: *defaults
+  database:
+    &lt;&lt;: *database
+    db_name: myapp_test
+  job_queue:
+    &lt;&lt;: *job_queue
+    db_name: qu_test</code></pre></noscript></div>
+
+
+<p>Now Mongoid and Qu use the same database configuration settings and it all comes from one file. Of course, you might want Mongoid and Qu to use different configuration settings, but hopefully you can see the benefit to my approach.</p>
+
+<p>Now that I&#8217;ve checked the time, I&#8217;m going to get 5 hours of sleep. So, like a chef, I&#8217;m cooked.</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/12/18/shared-mongo-configuration-settings-in-rails/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/">Map/Reduce With Hadoop and Ruby</a></h1>
     
     
@@ -310,6 +382,10 @@ Ryan has used moderators to help fight spam, keep the comments formatted properl
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/12/18/shared-mongo-configuration-settings-in-rails/">Shared Mongo Configuration Settings in Rails</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2011/12/18/map-reduce-with-hadoop-and-ruby/">Map/Reduce With Hadoop and Ruby</a>

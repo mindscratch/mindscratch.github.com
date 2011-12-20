@@ -13,11 +13,17 @@
         <lastmod>2011-12-18T21:35:27-05:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://mindscratch.org/blog/2011/12/18/shared-mongo-configuration-settings-in-rails/
+        </loc>
+        <lastmod>2011-12-19T22:10:00-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://mindscratch.org/blog/archives/</loc>
-        <lastmod>2011-12-18T21:35:27-05:00</lastmod>
+        <lastmod>2011-12-19T22:10:00-05:00</lastmod>
     </url>
     <url>
         <loc>http://mindscratch.org/</loc>
-        <lastmod>2011-12-18T21:35:27-05:00</lastmod>
+        <lastmod>2011-12-19T22:10:00-05:00</lastmod>
     </url>
 </urlset>

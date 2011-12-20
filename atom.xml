@@ -4,7 +4,7 @@
   <title>mindscratch.org</title>
   <link href="http://mindscratch.org/atom.xml" rel="self"/>
   <link href="http://mindscratch.org/"/>
-  <updated>2011-12-18T21:35:32-05:00</updated>
+  <updated>2011-12-19T22:10:59-05:00</updated>
   <id>http://mindscratch.org/</id>
   <author>
     <name>Craig Wickesser</name>
@@ -13,6 +13,57 @@
     
   </author>
 
+  
+  <entry>
+    <title>Shared Mongo Configuration Settings in Rails</title>
+    <link href="http://mindscratch.org/blog/2011/12/18/shared-mongo-configuration-settings-in-rails/"/>
+    <updated>2011-12-18T21:58:00-05:00</updated>
+    <id>http://mindscratch.org/blog/2011/12/18/shared-mongo-configuration-settings-in-rails</id>
+    <content type="html">&lt;p&gt;I've developed a handful of Rails (3.x) applications which all used MongoDB as the persistence layer. In fact, I've yet to build a SQL backed Rails application during my &quot;day job&quot;. Thus far I've preferred Mongoid vs. MongoMapper, primarily because of the documentation. Although, I haven't gone back to look at MongoMapper in almost a year...but at this point, I don't have a need to change.&lt;/p&gt;
+
+&lt;p&gt;Typically with Mongoid, you'll have a mongoid.yml file that has your database configuration. That's really super when you only use Mongoid to interact with your database. However, if you end up using another library/gem that needs to work with your database you'll have to duplicate your database configuration. NOT! Being a star developer (you know you are), you'll come up with some solution so you don't have to copy your database configuration around to multiple files.&lt;/p&gt;
+
+&lt;p&gt;I ran into this situation when I began using &lt;a href=&quot;https://github.com/bkeepers/qu/&quot;&gt;Qu&lt;/a&gt;. Qu is a library for &quot;queueing and processing background jobs&quot;. It's easy to use, has a dandy API and works with either MongoDB or Redis. It might be worth mentioning here that &lt;a href=&quot;https://github.com/bkeepers&quot;&gt;Brandon Keepers&lt;/a&gt;, the creator of Qu, worked for &lt;a href=&quot;http://orderedlist.com/&quot;&gt;Ordered List&lt;/a&gt; which was recently &lt;a href=&quot;http://orderedlist.com/blog/articles/ordered-list-acquired-by-github/&quot;&gt;acquired&lt;/a&gt; by GitHub.&lt;/p&gt;
+
+&lt;p&gt;Anyways, back to my solution for not duplicating database configuration. I've recently started using the &lt;a href=&quot;https://github.com/binarylogic/settingslogic&quot;&gt;settingslogic&lt;/a&gt; gem on my Rails project to manage my application configuration. I have a &quot;application.yml&quot; file that now contains my database configuration. Using settingslogic is not a requirement, in fact Rails has a &lt;a href=&quot;http://blog.carbonfive.com/2011/11/23/configuration-for-rails-the-right-way/&quot;&gt;built-in method&lt;/a&gt; for dealing with application configuration, so use what you like.&lt;/p&gt;
+
+&lt;p&gt;Once I had my database configuration in a file, I setup two initializers: one for Mongoid and one for Qu. The best way I found was to create a MongoDB &lt;a href=&quot;http://www.mongodb.org/display/DOCS/Connections&quot;&gt;URI formatted&lt;/a&gt; string. Check out the following gist:&lt;/p&gt;
+
+&lt;div&gt;&lt;script src='https://gist.github.com/1269292.js?file='&gt;&lt;/script&gt;
+&lt;noscript&gt;&lt;pre&gt;&lt;code&gt;# this is only a partial YAML file from a Rails application
+# this YAML file would be loaded and used with the settingslogic gem
+
+defaults: &amp;amp;defaults
+  database: &amp;amp;database
+    conn_uri: mongodb://username:password@localhost:27001/
+    db_name: myapp_default
+  job_queue: &amp;amp;job_queue
+    db_name: qu
+
+development:
+  &amp;lt;&amp;lt;: *defaults
+  database:
+    &amp;lt;&amp;lt;: *database
+    db_name: myapp_development
+  job_queue:
+    &amp;lt;&amp;lt;: *job_queue
+    db_name: qu_development
+
+test:
+  &amp;lt;&amp;lt;: *defaults
+  database:
+    &amp;lt;&amp;lt;: *database
+    db_name: myapp_test
+  job_queue:
+    &amp;lt;&amp;lt;: *job_queue
+    db_name: qu_test&lt;/code&gt;&lt;/pre&gt;&lt;/noscript&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now Mongoid and Qu use the same database configuration settings and it all comes from one file. Of course, you might want Mongoid and Qu to use different configuration settings, but hopefully you can see the benefit to my approach.&lt;/p&gt;
+
+&lt;p&gt;Now that I've checked the time, I'm going to get 5 hours of sleep. So, like a chef, I'm cooked.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Map/Reduce With Hadoop and Ruby</title>
